@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
 import {BsFillTrash2Fill} from 'react-icons/bs';
@@ -54,8 +54,19 @@ const App = () => {
     setEditId(task.id);
   };
 
+  useEffect(() => {
+    const storedTodos = localStorage.getItem("todos");
+    if (storedTodos) {
+      setTodos(JSON.parse(storedTodos));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   const ListTask = todos.map((task) => (
-    <div className="Task-item" style={{ backgroundColor: task.completed ? 'tomato' : '' }} key={task.id}>
+    <div className="Task-item" style={{ backgroundColor: task.completed ? 'lightcoral' : '' }} key={task.id}>
       <h2 className='Task-data'>{task.taskName}</h2>
 
       <div className='icon-div'>
@@ -70,10 +81,14 @@ const App = () => {
   return (
     <div>
       <div className="wrapper">
-        <h1>Task Master 🥷🏻</h1>
+        <h1>Task Master 🥷🏻 Get things done</h1>
+
         <div className="input-data">
+          <form className='input-data'>
           <input type="text" value={value} onChange={handleChange} />
-          <button onClick={handleSubmit}>Add Task</button>
+          <button type='submit' onClick={handleSubmit}>Add Task</button>
+          </form>
+          
         </div>
 
         <div className="display-data">{ListTask}</div>
