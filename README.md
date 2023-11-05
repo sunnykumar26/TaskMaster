@@ -1,6 +1,6 @@
 # TASK MASTER - a simple todo app
 
-## Features :
+## Implementation :
 1. implemented CRUD functionality using useState and useEffect hooks in REACTJS
 2. implemented LocalStorage functionality for all Tasks
 
